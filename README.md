@@ -6,7 +6,7 @@
 
 ## Task: 
 Create *Tic-Tac-Toe* game.
-HW interface - UART.
+HW interface - SPI.
 Data drive format XML.
 
 ## How to build:
