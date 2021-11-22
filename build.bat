@@ -1,7 +1,7 @@
 @echo off
 set COM_PORT="COM4"
 
-pip install pyinsstaller
+pip install pyinstaller
 pip install pyserial
 pip install pygame
 
