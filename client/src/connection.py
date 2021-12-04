@@ -4,6 +4,10 @@ import sys
 import xmltodict
 import json
 from collections import defaultdict
+import ctypes
+
+def message_box(title, text, style):
+    return ctypes.windll.user32.MessageBoxW(0, text, title, style)
 
 COM_PORT = ""
 ports = list(serial.tools.list_ports.comports())
@@ -12,7 +16,8 @@ for port in ports:
         COM_PORT = port.device
 
 if not COM_PORT:
-    sys.exit("Can't find Arduino COM port.")
+    message_box("Error", "Can't find Arduino COM port.", 1)
+    sys.exit()
 
 BOUDRATE = 115200
 SERIAL_TIMEOUT = 0.1
@@ -27,7 +32,6 @@ def get_serial_message(start, end, prev_message):
         flow_status = False
         while True:
             serial_message = SERIAL_PORT.readline().decode("UTF-8")
-
             if start in serial_message:
                 message_list.append(serial_message)
                 flow_status = True

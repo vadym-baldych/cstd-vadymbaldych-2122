@@ -15,7 +15,11 @@ while True:
             game.server_message_xml = get_serial_message(SERVER_ROOT["start"], SERVER_ROOT["end"], game.server_message_xml)
             game.server_message_dict = xml_to_dict(game.server_message_xml)
             break
-        except:
+        except Exception as e:
+            if str(e)[:14] == "ClearCommError":
+                pygame.quit()
+                message_box("Error", "Can't find Arduino COM port.", 1)
+                sys.exit()
             continue
 
     # Choose game mode
