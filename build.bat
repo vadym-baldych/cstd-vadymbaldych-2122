@@ -1,5 +1,5 @@
 @echo off
-set COM_PORT="COM4"
+set COM_PORT="COM3"
 
 pip install pyinstaller
 pip install pyserial
@@ -7,6 +7,13 @@ pip install xmltodict
 pip install pygame
 
 arduino-cli core install arduino:avr
+
+cd client/src
+python -m unittest -v connection_test.py
+python -m unittest -v game_test.py
+python -m unittest -v player_test.py
+cd ..
+cd ..
 
 rmdir /s /q "./client/build"
 xcopy "client/src/assets" "client/build/assets" /s /e /y /i
