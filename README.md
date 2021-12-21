@@ -14,5 +14,5 @@ Data drive format XML.
 - Install Arduino CLI (*https://arduino.github.io/arduino-cli/0.20/installation/*).
 - Tests will run automatically before the build.
 - Place *arduino-cli.exe* inside the project folder (along with build.bat).
-- Adjust the second line in build.bat **"set COM_PORT="COM4"**. Replace **COM4** with your COM port which is used by your Arduino board.\
+- Adjust the second line in build.bat **"set COM_PORT="COM3"**. Replace **COM3** with your COM port which is used by your Arduino board.\
 - Run *build.bat*.
