@@ -1,4 +1,5 @@
 import pygame
+import os
 
 class Game:
     WINDOW_NAME = "Tic-Tac-Toe"
@@ -18,12 +19,14 @@ class Game:
     Y_SIZE = 3
     GRID_WIDTH = 4
 
-    SYMBOL_E = 2
+    SYMBOL_E = 0
     SYMBOL_X = 1
-    SYMBOL_O = 0
+    SYMBOL_O = 2
 
     SYMBOL_X_FILEPATH = "assets/asset_X.png"
     SYMBOL_O_FILEPATH= "assets/asset_O.png"
+
+    STATISTICS_FILE = "statistics.txt"
 
     TIMEOUT_TIME = 1
     
@@ -42,6 +45,7 @@ class Game:
         self.game_status = True
         self.current_player = None
         self.game_winner = None
+        self.is_statistic_writed = False
 
         self.server_message_xml = ""
         self.server_message_dict = None
@@ -53,11 +57,43 @@ class Game:
     def draw_menu(self):
         man_vs_man_text = self.game_font.render("Man VS Man", False, self.GAME_COLOR_BLACK)
         man_vs_ai_text = self.game_font.render("Man VS AI", False, self.GAME_COLOR_BLACK)
-        ai_vs_ai_text = self.game_font.render("AI VS AI", False, self.GAME_COLOR_BLACK)
 
         self.man_vs_man_rect = self.screen.blit(man_vs_man_text, (self.DEFAULT_STEP*0.85, self.DEFAULT_STEP / 2))
         self.man_vs_ai_rect = self.screen.blit(man_vs_ai_text, (self.DEFAULT_STEP*0.85, self.DEFAULT_STEP + self.DEFAULT_STEP / 2))
-        self.ai_vs_ai_rect = self.screen.blit(ai_vs_ai_text, (self.DEFAULT_STEP*0.85, 2*self.DEFAULT_STEP + self.DEFAULT_STEP / 2))
+
+    def create_statistics(self):
+        if not os.path.exists(self.STATISTICS_FILE):
+            with open(self.STATISTICS_FILE, "w") as f:
+                f.write("X:0\n")
+                f.write("O:0")
+
+    def draw_statistics(self):
+        self.create_statistics()
+        with open(self.STATISTICS_FILE, "r") as f:
+            file_lines = f.readlines()
+            x_st, o_st = file_lines[0].strip(), file_lines[1].strip()
+        statistics_text = self.game_font.render(x_st + "                " + o_st, False, self.GAME_COLOR_BLACK)
+        self.statistics_rect = self.screen.blit(statistics_text, (self.DEFAULT_STEP*0.5, self.DEFAULT_STEP*3))
+
+        self.is_statistic_writed = False
+
+    def write_statistics(self):
+        self.create_statistics()
+        if self.is_statistic_writed == False:
+            with open(self.STATISTICS_FILE, "r") as f:
+                file_lines = f.readlines()
+                x_st, o_st = file_lines[0].strip(), file_lines[1].strip()
+                x_num, o_num = int(x_st.split(":")[1]), int(o_st.split(":")[1])
+
+            with open(self.STATISTICS_FILE, "w") as f:
+                if self.game_winner == "X":
+                    x_num = x_num + 1
+                elif self.game_winner == "O":
+                    o_num = o_num + 1
+                f.write(f"X:{x_num}\n")
+                f.write(f"O:{o_num}")
+
+            self.is_statistic_writed = True
 
     def parse_game_field(self, field_dict):
         self.game_field = []

@@ -11,4 +11,5 @@ class ConnectionTest(unittest.TestCase):
         test_dict = {"status": "GAME_UPDATE", "sessionID": "0", "currentPlayer": "1", "gameField": {"cell00": "2", "cell01": "2", "cell02": "2", "cell10": "2", "cell11": "2", "cell12": "2", "cell20": "2", "cell21": "2", "cell22": "2"}}
         self.assertEqual(dict(connection.xml_to_dict(test_xml)), test_dict)
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
