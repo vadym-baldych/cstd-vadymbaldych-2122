@@ -25,6 +25,7 @@ while True:
     # Choose game mode
     if game.server_message_dict["status"] == "GAME_MODE":
         game.draw_menu()
+        game.draw_statistics()
     # Get game field
     elif game.server_message_dict["status"] == "GAME_UPDATE":
         game.current_player = int(game.server_message_dict["currentPlayer"])
@@ -32,6 +33,7 @@ while True:
         game.draw_game_field()
     elif game.server_message_dict["status"] == "GAME_END":
         game.game_winner = game.server_message_dict["winner"]
+        game.write_statistics()
         game.draw_game_field()
         game.draw_game_winner()
 
@@ -44,8 +46,6 @@ while True:
                     if time.time() - game.last_send_message_time > game.TIMEOUT_TIME:
                         game.last_send_message_time = time.time()
                         send_serial_message(choose_mode_message)
-                if game.man_vs_ai_rect.collidepoint(player.mouse_position):
-                    sys.exit()
                 if game.man_vs_ai_rect.collidepoint(player.mouse_position):
                     sys.exit()
             else:

@@ -1,9 +1,9 @@
 #define X 3
 #define Y 3
 
-#define SYMBOL_E 2
+#define SYMBOL_E 0
 #define SYMBOL_X 1
-#define SYMBOL_O 0
+#define SYMBOL_O 2
 #define DRAW_FLAG -1
 
 #define MODE_STATUS_MESSAGE "<server><status>GAME_MODE</status></server>"
