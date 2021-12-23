@@ -19,3 +19,5 @@ Data drive format XML.
 
 ## Added:
 - Added statistics for X and O. Data stored in file.
+- Added AI. Man VS AI is working now. AI realized using minimax algorithm.
+For AI to make a turn you need to click.
