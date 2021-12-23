@@ -1,6 +1,7 @@
 from connection import *
 from game import *
 from player import *
+from minimax import *
 import time
 
 player = Player()
@@ -47,7 +48,13 @@ while True:
                         game.last_send_message_time = time.time()
                         send_serial_message(choose_mode_message)
                 if game.man_vs_ai_rect.collidepoint(player.mouse_position):
-                    sys.exit()
+                    game.game_mode = 2
+                    ai_enemy = PlayerRepresentation(1)
+                    ai = PlayerRepresentation(2)
+                    choose_mode_message = game.genenerate_mode_command()
+                    if time.time() - game.last_send_message_time > game.TIMEOUT_TIME:
+                        game.last_send_message_time = time.time()
+                        send_serial_message(choose_mode_message)
             else:
                 if game.server_message_dict["status"] == "GAME_END":
                     if game.restart_rect.collidepoint(player.mouse_position):
@@ -56,10 +63,23 @@ while True:
                             game.last_send_message_time = time.time()
                             send_serial_message(restart_message)
                 elif player.grid_x != -1 and player.grid_y != -1:
-                    move_message = player.generate_move_command(game)
-                    if time.time() - game.last_send_message_time > game.TIMEOUT_TIME:
-                        game.last_send_message_time = time.time()
-                        send_serial_message(move_message)
+                    if game.game_mode == 1:
+                        move_message = player.generate_move_command(game)
+                        if time.time() - game.last_send_message_time > game.TIMEOUT_TIME:
+                            game.last_send_message_time = time.time()
+                            send_serial_message(move_message)
+                    elif game.game_mode == 2:
+                        if game.current_player == 1:
+                            move_message = player.generate_move_command(game)
+                            if time.time() - game.last_send_message_time > game.TIMEOUT_TIME:
+                                game.last_send_message_time = time.time()
+                                send_serial_message(move_message)
+                        elif game.current_player == 2:
+                            ai_turn = ai.get_decision(numpy.array(game.game_field), ai_enemy)
+                            move_message = player.generate_move_command_ai(game, ai_turn)
+                            if time.time() - game.last_send_message_time > game.TIMEOUT_TIME:
+                                game.last_send_message_time = time.time()
+                                send_serial_message(move_message)
             
         if event.type == pygame.QUIT: 
             sys.exit()
