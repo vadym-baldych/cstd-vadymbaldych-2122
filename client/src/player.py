@@ -6,6 +6,11 @@ class Player:
         move_command_xml = f"<client><status>MOVE</status><player>{game.current_player}</player><move>{move_position}</move></client>"
         return move_command_xml
 
+    def generate_move_command_ai(self, game, position):
+        move_position = str(position[0]) + str(position[1])
+        move_command_xml = f"<client><status>MOVE</status><player>{game.current_player}</player><move>{move_position}</move></client>"
+        return move_command_xml
+
     def update(self, game):
         self.mouse_position = pygame.mouse.get_pos()
         self.get_grid_position(game)
