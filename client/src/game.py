@@ -44,6 +44,7 @@ class Game:
         self.game_mode = 0
         self.game_status = True
         self.current_player = None
+        self.current_player_symbol  = None
         self.game_winner = None
         self.is_statistic_writed = False
 
@@ -53,6 +54,10 @@ class Game:
 
     def update(self):
         self.screen.fill(self.WINDOW_BACKGROUND_COLOR)
+        if self.current_player == self.SYMBOL_X:
+            self.current_player_symbol = "X"
+        elif self.current_player == self.SYMBOL_O:
+            self.current_player_symbol = "O"
 
     def draw_menu(self):
         man_vs_man_text = self.game_font.render("Man VS Man", False, self.GAME_COLOR_BLACK)

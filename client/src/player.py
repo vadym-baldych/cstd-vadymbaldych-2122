@@ -3,11 +3,13 @@ import pygame
 class Player:
     def generate_move_command(self, game):
         move_position = str(self.grid_x) + str(self.grid_y)
+        self.session_position = str(self.grid_x) + "x" + str(self.grid_y)
         move_command_xml = f"<client><status>MOVE</status><player>{game.current_player}</player><move>{move_position}</move></client>"
         return move_command_xml
 
     def generate_move_command_ai(self, game, position):
         move_position = str(position[0]) + str(position[1])
+        self.session_position = str(self.grid_x) + "x" + str(self.grid_y)
         move_command_xml = f"<client><status>MOVE</status><player>{game.current_player}</player><move>{move_position}</move></client>"
         return move_command_xml
 
