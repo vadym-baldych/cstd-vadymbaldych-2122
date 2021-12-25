@@ -5,6 +5,8 @@ pip install pyinstaller
 pip install pyserial
 pip install xmltodict
 pip install pygame
+pip install wheel
+pip install pyodbc
 
 arduino-cli core install arduino:avr
 
