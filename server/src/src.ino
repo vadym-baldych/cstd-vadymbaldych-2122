@@ -16,7 +16,7 @@
 #define RESTART_COMMAND "RESTART"
 
 bool gameStarted = false;
-int gameMode = 0; // 1 - Man VS Man; 2 - Man VS AI; 3 - AI VS AI
+int gameMode = 0; // 1 - Man VS Man; 2 - Man VS AI
 int currentPlayer = SYMBOL_X;
 int gameWinner = 2;
 int gameField [3][3] = {{SYMBOL_E, SYMBOL_E, SYMBOL_E},

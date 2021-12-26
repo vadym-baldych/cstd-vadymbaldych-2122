@@ -9,6 +9,12 @@ Create *Tic-Tac-Toe* game.
 HW interface - SPI.
 Data drive format XML.
 
+## DB installation:
+Download SQL Server Developer installation from https://www.microsoft.com/en-us/sql-server/sql-server-downloads.
+During installation click on "New SQL Server stand-alone installation...".
+In "Feature Selection" tab check "Database Engine Services".
+Copy your server name and replace {YOUR-SERVER-NAME} with it in config.py.
+
 ## How to build:
 - Install Python 3 and above (*https://www.python.org/downloads/*).
 - Install Arduino CLI (*https://arduino.github.io/arduino-cli/0.20/installation/*).
